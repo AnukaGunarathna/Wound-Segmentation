@@ -1,0 +1,16 @@
+# Python cache and environment
+__pycache__/
+*.pyc
+software_venv/
+
+# Model and data
+*.keras
+*.h5
+*.tfrecord
+results/
+
+# System files
+.DS_Store
+
+# VS Code settings
+.vscode/
