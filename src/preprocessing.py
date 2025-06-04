@@ -36,33 +36,6 @@ def resize_with_aspect_ratio(image, target_size=512):
     return resized
 
 
-# Random Augmentations (Shift, Rotate, Flip)
-# Increases diversity in training data and helps prevent overfitting.
-"""
-# ====== NOT NEEDED FOR PREDICTIONS ====== #
-def augment_image_and_mask(image, mask):
-    # Random horizontal flip
-    if np.random.rand() > 0.5:
-        image = np.fliplr(image)
-        mask = np.fliplr(mask)
-
-    # Random vertical flip
-    if np.random.rand() > 0.5:
-        image = np.flipud(image)
-        mask = np.flipud(mask)
-
-    # Random rotation
-    angle = np.random.uniform(-30, 30)
-    center = (image.shape[1] // 2, image.shape[0] // 2)
-    M = cv2.getRotationMatrix2D(center, angle, 1)
-    image = cv2.warpAffine(image, M, (image.shape[1], image.shape[0]))
-    mask = cv2.warpAffine(mask, M, (mask.shape[1], mask.shape[0]))
-
-    return image, mask
-
-"""
-
-
 def center_crop(image, size=512):
     """
     Center crop a square patch from the image of size `target_size`.
@@ -71,13 +44,28 @@ def center_crop(image, size=512):
     h, w = image.shape[:2]
     start_y = max(0, h // 2 - size // 2)
     start_x = max(0, w // 2 - size // 2)
-    return image[start_y : start_y + size, start_x : start_x + size]
+    cropped_image = image[start_y : start_y + size, start_x : start_x + size]
+    return cropped_image
+
+
+def scale_image_to_0_255(image):
+    image_min = np.min(image)
+    image_max = np.max(image)
+    scaled_to_0_1 = (image - image_min) / (
+        image_max - image_min + 1e-7
+    )  # scale to [0, 1]
+    scaled_to_0_255 = (scaled_to_0_1 * 255).astype(np.uint8)
+    return scaled_to_0_255  # scale to [0, 255]
 
 
 # RGB Normalization (Image-Wise Mean & Std)
 # Normalization removes highlighted regions, shadows and make that object easier to detect
 def normalize_image(image):
     # Compute per-channel mean and std
+    image = scale_image_to_0_255(image)
     mean = np.mean(image, axis=(0, 1), keepdims=True)
     std = np.std(image, axis=(0, 1), keepdims=True)
-    return (image - mean) / (std + 1e-7)  # 1e-7 is added to avoid division by zero
+    normalized_image = (image - mean) / (
+        std + 1e-7
+    )  # 1e-7 is added to avoid division by zero
+    return normalized_image
