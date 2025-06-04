@@ -21,6 +21,6 @@ def predict_mask(model, image_path):
     image = normalize_image(image)
     input_tensor = image[np.newaxis, ...].astype(np.float32)
 
-    pred_mask = model.predict(input_tensor)[0]
-    pred_mask = (pred_mask > 0.5).astype(np.uint8)
-    return image, pred_mask[..., 0]
+    predicted_mask = model.predict(input_tensor)[0]
+    predicted_mask = (predicted_mask > 0.5).astype(np.uint8)
+    return image, predicted_mask[..., 0]
