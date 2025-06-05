@@ -2,12 +2,16 @@ import os
 from zipfile import ZipFile
 import gdown
 
+from constants import GDRIVE_FILE_ID, DEFAULT_MODEL_DIR, DEFAULT_MODEL_FILENAME
 
-def download_weights(gdrive_id: str, model_name: str = "segmentation_model"):
+
+def download_weights(
+    gdrive_id: str = GDRIVE_FILE_ID, model_name: str = DEFAULT_MODEL_FILENAME
+):
     zip_filename = f"{model_name}.zip"
-    weights_filename = f"{model_name}.weights.h5"
+    weights_filename = model_name
     model_dir = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), "model_weights"
+        os.path.dirname(os.path.dirname(__file__)), DEFAULT_MODEL_DIR
     )
 
     os.makedirs(model_dir, exist_ok=True)
