@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 from model import load_segmentation_model
 from predict import predict_mask
-
+from checkpoints import download_weights
 from constants import (
     DEFAULT_OUTPUT_DIR,
     DEFAULT_MODEL_PATH,
@@ -48,6 +48,10 @@ def main():
         help="Directory to save results",
     )
     args = parser.parse_args()
+
+    if not os.path.exists(args.model):
+        print("Downloading model weights...")
+        download_weights(gdrive_id=GDRIVE_FILE_ID, model_name=DEFAULT_MODEL_FILENAME)
 
     model = load_segmentation_model(args.model)
     image, mask = predict_mask(model, args.image)
