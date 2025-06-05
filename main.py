@@ -27,7 +27,7 @@ def save_result(image, mask, output_dir, basename):
 def main():
     parser = argparse.ArgumentParser(description="Segmentation Model Inference")
     parser.add_argument(
-        "--model", type=str, required=True, help="Path to the model file"
+        "--model", type=str, default="../model_weights/segmentation_model.weights.h5", help="Path to the model file"
     )
     parser.add_argument(
         "--image", type=str, required=True, help="Path to the input image"
