@@ -1,8 +1,9 @@
 import tensorflow as tf
 from tensorflow.keras import layers, models
+from constants import IMG_SIZE
 
 
-def segmentation_model(input_shape: tuple = (512, 512, 3)) -> tf.keras.Model:
+def segmentation_model(input_shape: tuple = (IMG_SIZE, IMG_SIZE, 3)) -> tf.keras.Model:
     """
     Build a U-Net style binary segmentation model with EfficientNetB3 as the encoder.
 
