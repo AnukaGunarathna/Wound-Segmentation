@@ -7,7 +7,7 @@ software_venv/
 *.keras
 *.h5
 *.tfrecord
-results/
+outputs/
 
 # System files
 .DS_Store
