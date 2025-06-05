@@ -5,8 +5,10 @@ import gdown
 
 def download_weights(gdrive_id: str, model_name: str = "segmentation_model"):
     zip_filename = f"{model_name}.zip"
-    weights_filename = f"{model_name}.keras"
-    model_dir = "models"
+    weights_filename = f"{model_name}.weights.h5"
+    model_dir = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)), "model_weights"
+    )
 
     os.makedirs(model_dir, exist_ok=True)
 
