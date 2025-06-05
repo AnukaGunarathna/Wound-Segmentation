@@ -1,8 +1,9 @@
 import cv2
 import numpy as np
+from constants import IMG_SIZE
 
 
-def resize_with_aspect_ratio(image, target_size=512):
+def resize_with_aspect_ratio(image, target_size=IMG_SIZE):
     """
     Resize an image such that the shorter side becomes `target_size`, preserving aspect ratio.
     """
@@ -36,7 +37,7 @@ def resize_with_aspect_ratio(image, target_size=512):
     return resized
 
 
-def center_crop(image, size=512):
+def center_crop(image, size=IMG_SIZE):
     """
     Center crop a square patch from the image of size `target_size`.
     Assumes image is larger than target_size.
