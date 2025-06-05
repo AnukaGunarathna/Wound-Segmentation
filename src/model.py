@@ -1,22 +1,106 @@
-from tensorflow.keras.models import load_model
-from utils import dice_coef, bce_dice_loss_weighted
+import tensorflow as tf
+from tensorflow.keras import layers, models
 
 
-def load_segmentation_model(model_path):
+def segmentation_model(input_shape: tuple = (512, 512, 3)) -> tf.keras.Model:
     """
-    Load a Keras model with custom loss and metric functions.
+    Build a U-Net style binary segmentation model with EfficientNetB3 as the encoder.
 
-    Args:
-        model_path (str): Path to the .keras or .h5 model file
+    This function builds a deep convolutional neural network model for semantic segmentation of
+    images. The encoder is constructed using EfficientNetB3 model (without the top classification
+    layer and without ImageNet pretrained weights) while the decoder block uses transpose
+    convolutions and skip connections to upsample the feature maps.
 
-    Returns:
-        tf.keras.Model: Compiled model ready for prediction or evaluation
+    Parameters
+    ----------
+    input_shape : tuple
+        Dimensions of the input RGB image, default (512, 512, 3)
+
+    Returns
+    -------
+    tf.keras.Model
+        A Keras model that maps input RGB images to binary masks with values in [0, 1]
+        using sigmoid activation.
+
+    Raises
+    ------
+    ValueError
+        If the input shape has fewer than 3 dimensions
+
+    Examples
+    --------
+    >>> model = segmentation_model(input_shape=(512, 512, 3))
+    >>> model.summary()
     """
-    model = load_model(
-        model_path,
-        custom_objects={
-            "bce_dice_loss_weighted": bce_dice_loss_weighted,
-            "dice_coef": dice_coef,
-        },
+    if len(input_shape) < 3:
+        raise ValueError(
+            f"Expected input_shape with 3 dimensions, but got {input_shape}"
+        )
+
+    inputs = tf.keras.Input(shape=input_shape)
+
+    # EfficientNetB3 encoder
+    base_model = tf.keras.applications.EfficientNetB3(
+        include_top=False, weights=None, input_tensor=inputs
     )
+    # extract feature layers
+    skips = [
+        base_model.get_layer(name).output
+        for name in [
+            "block2a_expand_activation",
+            "block3a_expand_activation",
+            "block4a_expand_activation",
+            "block6a_expand_activation",
+        ]
+    ]
+
+    x = base_model.output  # 16×16×1536
+    decoder_filters = [256, 128, 64, 32]
+
+    for i, skip in enumerate(reversed(skips)):
+        x = layers.Conv2DTranspose(decoder_filters[i], 3, strides=2, padding="same")(x)
+        x = layers.Concatenate()([x, skip])
+        x = layers.Conv2D(decoder_filters[i], 3, padding="same", activation="relu")(x)
+        x = layers.BatchNormalization()(x)
+
+    x = layers.Conv2DTranspose(16, 3, strides=2, padding="same")(x)
+    outputs = layers.Conv2D(1, 1, activation="sigmoid", name="output_mask")(x)
+
+    model = models.Model(inputs=inputs, outputs=outputs)
+    return model
+
+
+def load_segmentation_model(weights_path: str = None) -> tf.keras.Model:
+    """
+    This function loads the binary segmentation model and apply the pre-trained weights.
+
+    Parameters
+    ----------
+    weights_path : str
+        Path to the pretrained model weights file. If None, the model is returned without pretrained
+        weights.
+
+    Returns
+    -------
+    tf.keras.Model
+        The segmentation model with weights loaded if path is provided.
+
+    Raises
+    ------
+    ValueError
+        If the weights do not match the architecture or the file is corrupted.
+
+    Examples
+    --------
+    >>> model = load_segmentation_model("models/segmentation_model_finetuned.keras")
+    >>> pred_mask = model.predict(np.expand_dims(image, axis=0))
+    """
+    model = segmentation_model()
+
+    if weights_path:
+        try:
+            model.load_weights(weights_path)
+        except ValueError as e:
+            raise type(e)(f"Failed to load weights from '{weights_path}': {e}")
+
     return model
