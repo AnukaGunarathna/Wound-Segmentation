@@ -1,3 +1,5 @@
+import os
+import matplotlib.pyplot as plt
 import tensorflow as tf
 
 
@@ -37,3 +39,18 @@ def bce_dice_loss_weighted(y_true, y_pred, alpha=0.2):
     dice = dice_loss(y_true, y_pred)
     weighted_loss = alpha * bce + (1 - alpha) * dice
     return weighted_loss
+
+
+def save_result(image, mask, basename, output_dir):
+    """Save the input image and predicted mask side-by-side."""
+    os.makedirs(output_dir, exist_ok=True)
+    fig, ax = plt.subplots(1, 2, figsize=(10, 5))
+    ax[0].imshow(image)
+    ax[0].set_title("Input Image")
+    ax[0].axis("off")
+    ax[1].imshow(mask, cmap="gray")
+    ax[1].set_title("Predicted Mask")
+    ax[1].axis("off")
+    output_path = os.path.join(output_dir, f"{basename}_result.png")
+    plt.savefig(output_path)
+    plt.close()
