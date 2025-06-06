@@ -7,27 +7,13 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 from model import load_segmentation_model
 from predict import predict_mask
 from checkpoints import download_weights
+from utils import save_result
 from constants import (
     DEFAULT_OUTPUT_DIR,
     DEFAULT_MODEL_PATH,
     GDRIVE_FILE_ID,
     DEFAULT_MODEL_FILENAME,
 )
-
-
-def save_result(image, mask, basename, output_dir=DEFAULT_OUTPUT_DIR):
-    """Save the input image and predicted mask side-by-side."""
-    os.makedirs(output_dir, exist_ok=True)
-    fig, ax = plt.subplots(1, 2, figsize=(10, 5))
-    ax[0].imshow(image)
-    ax[0].set_title("Input Image")
-    ax[0].axis("off")
-    ax[1].imshow(mask, cmap="gray")
-    ax[1].set_title("Predicted Mask")
-    ax[1].axis("off")
-    output_path = os.path.join(output_dir, f"{basename}_result.png")
-    plt.savefig(output_path)
-    plt.close()
 
 
 def main():
