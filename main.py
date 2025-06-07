@@ -16,6 +16,28 @@ from constants import (
 )
 
 
+def run_single_image(model, image_path, output_dir):
+    image, mask = predict_mask(model, image_path)
+    basename = os.path.splitext(os.path.basename(image_path))[0]
+    save_result(image, mask, basename, output_dir)
+    print(f"Result saved to {output_dir}/{basename}_result.png")
+
+
+def run_batch(model, input_dir, output_dir):
+    valid_ext = (".jpg", ".jpeg", ".png")
+    image_files = [f for f in os.listdir(input_dir) if f.lower().endswith(valid_ext)]
+
+    if not image_files:
+        print(f"No image files found in {input_dir}")
+        return
+
+    print(f"Found {len(image_files)} images in '{input_dir}'")
+
+    for img_file in image_files:
+        image_path = os.path.join(input_dir, img_file)
+        run_single_image(model, image_path, output_dir)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Segmentation Model Inference")
     parser.add_argument(
@@ -24,9 +46,11 @@ def main():
         default=DEFAULT_MODEL_PATH,
         help="Path to the model file",
     )
-    parser.add_argument(
-        "--image", type=str, required=True, help="Path to the input image"
-    )
+
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--image", type=str, help="Path to a single input image")
+    group.add_argument("--input_dir", type=str, help="Directory of input images")
+
     parser.add_argument(
         "--output",
         type=str,
@@ -40,10 +64,11 @@ def main():
         download_weights(gdrive_id=GDRIVE_FILE_ID, model_name=DEFAULT_MODEL_FILENAME)
 
     model = load_segmentation_model(args.model)
-    image, mask = predict_mask(model, args.image)
-    basename = os.path.splitext(os.path.basename(args.image))[0]
-    save_result(image, mask, basename, args.output)
-    print(f"Result saved to {args.output}/{basename}_result.png")
+
+    if args.image:
+        run_single_image(model, args.image, args.output)
+    elif args.input_dir:
+        run_batch(model, args.input_dir, args.output)
 
 
 if __name__ == "__main__":
