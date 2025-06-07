@@ -23,17 +23,17 @@ logging.basicConfig(
 )
 
 
-def run_single_image(model, image_path, output_dir):
+def run_single_image(model, image_path, output_dir, threshold):
     if not os.path.exists(image_path):
         raise FileNotFoundError(f"Image file not found: {image_path}")
     logging.info("Running prediction on image: %s", image_path)
-    image, mask = predict_mask(model, image_path)
+    image, mask = predict_mask(model, image_path, threshold)
     basename = os.path.splitext(os.path.basename(image_path))[0]
     save_result(image, mask, basename, output_dir)
     logging.info("Result saved to %s/%s_result.png", output_dir, basename)
 
 
-def run_batch(model, input_dir, output_dir):
+def run_batch(model, input_dir, output_dir, threshold):
     if not os.path.exists(input_dir):
         raise FileNotFoundError(f"Input directory not found: {input_dir}")
     valid_ext = (".jpg", ".jpeg", ".png")
@@ -47,7 +47,7 @@ def run_batch(model, input_dir, output_dir):
     for img_file in image_files:
         image_path = os.path.join(input_dir, img_file)
         try:
-            run_single_image(model, image_path, output_dir)
+            run_single_image(model, image_path, output_dir, threshold)
         except ValueError as e:
             logging.warning("Skipping %s due to error: %s", img_file, e)
 
@@ -71,6 +71,14 @@ def main():
         default=DEFAULT_OUTPUT_DIR,
         help="Directory to save results",
     )
+
+    parser.add_argument(
+        "--threshold",
+        type=float,
+        default=0.5,
+        help="Threshold to convert predicted probabilities to binary mask (default=0.5)",
+    )
+
     args = parser.parse_args()
 
     if not os.path.exists(args.model):
@@ -80,9 +88,9 @@ def main():
     model = load_segmentation_model(args.model)
 
     if args.image:
-        run_single_image(model, args.image, args.output)
+        run_single_image(model, args.image, args.output, args.threshold)
     elif args.input_dir:
-        run_batch(model, args.input_dir, args.output)
+        run_batch(model, args.input_dir, args.output, args.threshold)
 
 
 if __name__ == "__main__":
