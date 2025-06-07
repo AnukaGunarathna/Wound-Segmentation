@@ -1,7 +1,9 @@
 import argparse
 import os
 import sys
-import matplotlib.pyplot as plt
+import logging
+
+# import matplotlib.pyplot as plt
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 from model import load_segmentation_model
@@ -15,27 +17,39 @@ from constants import (
     DEFAULT_MODEL_FILENAME,
 )
 
+# === Configure logging ===
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 def run_single_image(model, image_path, output_dir):
+    if not os.path.exists(image_path):
+        raise FileNotFoundError(f"Image file not found: {image_path}")
+    logging.info("Running prediction on image: %s", image_path)
     image, mask = predict_mask(model, image_path)
     basename = os.path.splitext(os.path.basename(image_path))[0]
     save_result(image, mask, basename, output_dir)
-    print(f"Result saved to {output_dir}/{basename}_result.png")
+    logging.info("Result saved to %s/%s_result.png", output_dir, basename)
 
 
 def run_batch(model, input_dir, output_dir):
+    if not os.path.exists(input_dir):
+        raise FileNotFoundError(f"Input directory not found: {input_dir}")
     valid_ext = (".jpg", ".jpeg", ".png")
     image_files = [f for f in os.listdir(input_dir) if f.lower().endswith(valid_ext)]
 
     if not image_files:
-        print(f"No image files found in {input_dir}")
-        return
+        raise FileNotFoundError(f"No valid images found in '{input_dir}'")
 
-    print(f"Found {len(image_files)} images in '{input_dir}'")
+    logging.info("Found %d images in '%s'", len(image_files), input_dir)
 
     for img_file in image_files:
         image_path = os.path.join(input_dir, img_file)
-        run_single_image(model, image_path, output_dir)
+        try:
+            run_single_image(model, image_path, output_dir)
+        except ValueError as e:
+            logging.warning("Skipping %s due to error: %s", img_file, e)
 
 
 def main():
@@ -60,7 +74,7 @@ def main():
     args = parser.parse_args()
 
     if not os.path.exists(args.model):
-        print("Downloading model weights...")
+        logging.warning("Model not found at %s. Attempting to download...", args.model)
         download_weights(gdrive_id=GDRIVE_FILE_ID, model_name=DEFAULT_MODEL_FILENAME)
 
     model = load_segmentation_model(args.model)
