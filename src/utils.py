@@ -2,6 +2,8 @@ import os
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
+from preprocessing import scale_image_to_0_255
+
 
 def dice_coef(y_true, y_pred, smooth=1e-6):
     """
@@ -45,7 +47,10 @@ def save_result(image, mask, basename, output_dir):
     """Save the input image and predicted mask side-by-side."""
     os.makedirs(output_dir, exist_ok=True)
     fig, ax = plt.subplots(1, 2, figsize=(10, 5))
-    ax[0].imshow(image)
+    display_image = scale_image_to_0_255(image)
+    ax[0].imshow(display_image)
+
+    # ax[0].imshow(image)
     ax[0].set_title("Input Image")
     ax[0].axis("off")
     ax[1].imshow(mask, cmap="gray")
