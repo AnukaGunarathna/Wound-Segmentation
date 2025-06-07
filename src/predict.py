@@ -3,7 +3,7 @@ import numpy as np
 from preprocessing import resize_with_aspect_ratio, center_crop, normalize_image
 
 
-def predict_mask(model, image_path):
+def predict_mask(model, image_path, threshold=0.5):
     """
     Predict a binary mask from an input image using the given segmentation model.
 
@@ -15,6 +15,8 @@ def predict_mask(model, image_path):
         np.ndarray: Tuple of (original image, predicted mask)
     """
     image = cv2.imread(image_path)
+    if image is None:
+        raise FileNotFoundError(f"Cannot read image from: {image_path}")
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image = resize_with_aspect_ratio(image)
     image = center_crop(image)
@@ -22,5 +24,5 @@ def predict_mask(model, image_path):
     input_tensor = image[np.newaxis, ...].astype(np.float32)
 
     predicted_mask = model.predict(input_tensor)[0]
-    predicted_mask = (predicted_mask > 0.5).astype(np.uint8)
+    predicted_mask = (predicted_mask > threshold).astype(np.uint8)
     return image, predicted_mask[..., 0]
