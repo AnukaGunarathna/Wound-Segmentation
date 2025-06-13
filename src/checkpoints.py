@@ -1,8 +1,12 @@
 import os
+import logging
 from zipfile import ZipFile
 import gdown
 
 from constants import GDRIVE_FILE_ID, DEFAULT_MODEL_DIR, DEFAULT_MODEL_FILENAME
+
+# Module-level logger
+logger = logging.getLogger(__name__)
 
 
 def download_weights(
@@ -40,23 +44,23 @@ def download_weights(
     os.makedirs(model_dir, exist_ok=True)
 
     # Download the weights from Google Drive
-    print(f"Downloading {model_name} weights...", end=" ", flush=True)
+    logger.info("Downloading %s weights... (takes about 4 minutes)", model_name)
     try:
         gdown.download(id=gdrive_id, output=zip_filename, quiet=True)
-        print("Done")
+        logger.info("Download complete.")
     except Exception as e:
-        print("Failed")
+        logger.exception("Failed to download model weights.")
         raise RuntimeError(f"Failed to download model: {e}") from e
 
     # Extract the zip file
-    print(f"Extracting to '{model_dir}/'...", end=" ", flush=True)
+    logger.info("Extracting to '%s/'...", model_dir)
     try:
         with ZipFile(zip_filename, "r") as zip_ref:
             zip_ref.extractall(model_dir)
         os.remove(zip_filename)
-        print("Done")
+        logger.info("Extraction complete.")
     except Exception as e:
-        print("Failed")
+        logger.exception("Failed to extract model weights.")
         raise RuntimeError(f"Failed to extract weights: {e}") from e
 
-    print(f"Model weights saved to {os.path.join(model_dir, weights_filename)}")
+    logger.info("Model weights saved to %s", os.path.join(model_dir, weights_filename))
