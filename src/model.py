@@ -40,11 +40,12 @@ def segmentation_model(input_shape: tuple = (IMG_SIZE, IMG_SIZE, 3)) -> tf.keras
 
     inputs = tf.keras.Input(shape=input_shape)
 
-    # EfficientNetB3 encoder
+    # === Encoder ===
+    # Use EfficientNetB3 as encoder without top classification layers and without pretrained weights
     base_model = tf.keras.applications.EfficientNetB3(
         include_top=False, weights=None, input_tensor=inputs
     )
-    # extract feature layers
+    # Extract intermediate layers for skip connections
     skips = [
         base_model.get_layer(name).output
         for name in [
@@ -55,16 +56,20 @@ def segmentation_model(input_shape: tuple = (IMG_SIZE, IMG_SIZE, 3)) -> tf.keras
         ]
     ]
 
-    x = base_model.output  # 16×16×1536
+    x = base_model.output  # Last encoder output (low resolution)
+
+    # === Decoder ===
     decoder_filters = [256, 128, 64, 32]
 
     for i, skip in enumerate(reversed(skips)):
         x = layers.Conv2DTranspose(decoder_filters[i], 3, strides=2, padding="same")(x)
-        x = layers.Concatenate()([x, skip])
+        x = layers.Concatenate()([x, skip])  # Add skip connection from encoder
         x = layers.Conv2D(decoder_filters[i], 3, padding="same", activation="relu")(x)
         x = layers.BatchNormalization()(x)
 
+    # Final upsampling to get original resolution
     x = layers.Conv2DTranspose(16, 3, strides=2, padding="same")(x)
+    # Final 1×1 convolution to output a single-channel binary mask
     outputs = layers.Conv2D(1, 1, activation="sigmoid", name="output_mask")(x)
 
     model = models.Model(inputs=inputs, outputs=outputs)
