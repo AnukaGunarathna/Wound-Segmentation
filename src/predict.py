@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from preprocessing import resize_with_aspect_ratio, center_crop, normalize_image
+import tensorflow as tf
 
 
 def predict_mask(
