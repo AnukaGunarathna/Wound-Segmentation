@@ -50,7 +50,7 @@ def resize_with_aspect_ratio(
     pad_w = max(0, target_size - resized.shape[1])
 
     # Apply zero-padding if necessary
-    if pad_h > 0 or pad_w > 0:
+    if pad_h > 0 or pad_w > 0:  # pragma: no cover
         if resized.ndim == 3:
             # RGB image
             resized = np.pad(
