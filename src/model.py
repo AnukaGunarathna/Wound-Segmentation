@@ -106,7 +106,9 @@ def load_segmentation_model(weights_path: str = None) -> tf.keras.Model:
     if weights_path:
         try:
             model.load_weights(weights_path)
-        except ValueError as e:
-            raise type(e)(f"Failed to load weights from '{weights_path}': {e}")
+        except Exception as e:
+            raise ValueError(
+                f"Failed to load weights from '{weights_path}': {e}"
+            ) from e
 
     return model
