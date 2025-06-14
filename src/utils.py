@@ -115,7 +115,7 @@ def bce_dice_loss_weighted(
 
 def save_result(
     image: np.ndarray, mask: np.ndarray, basename: str, output_dir: str
-) -> None:
+) -> None:  # pragma: no cover
     """
     Save the input image and predicted mask side-by-side as a PNG.
 
