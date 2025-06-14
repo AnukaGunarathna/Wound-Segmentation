@@ -1,0 +1,12 @@
+# .coveragerc
+
+[run]
+source = src
+omit =
+    src/utils.py:save_result
+    */config-3.py
+    */software_venv/*
+    */site-packages/*
+
+[report]
+show_missing = true
