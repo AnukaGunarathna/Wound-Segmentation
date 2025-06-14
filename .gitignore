@@ -8,9 +8,16 @@ software_venv/
 *.h5
 *.tfrecord
 outputs/
+model_weights/
 
 # System files
 .DS_Store
 
 # VS Code settings
 .vscode/
+
+# coverage and test cache
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
