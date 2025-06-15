@@ -1,3 +1,20 @@
+"""
+Preprocessing functions for wound image resizing, cropping and normalization,
+
+This module includes core image preprocessing utilities used during both training
+and inference phases of the wound segmentation pipeline. All functions are
+designed to ensure shape consistency, pixel scaling, and model compatibility.
+
+Functions
+---------
+- resize_with_aspect_ratio : Resize images while preserving aspect ratio and padding if needed.
+- center_crop : Crop a square patch from the center of an image.
+- scale_image_to_0_255 : Rescale image values to [0, 255] range and convert to uint8.
+- normalize_image : Normalize an RGB image to zero mean and unit variance.
+
+These transformations ensure model robustness across varying input sizes and lighting conditions.
+"""
+
 import cv2
 import numpy as np
 from constants import IMG_SIZE
