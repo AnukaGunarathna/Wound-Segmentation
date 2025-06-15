@@ -3,7 +3,9 @@ import tensorflow as tf
 import numpy as np
 import sys, os
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "wound_segmentation"))
+)
 from model import segmentation_model, load_segmentation_model
 
 

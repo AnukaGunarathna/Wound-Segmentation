@@ -5,7 +5,9 @@ import cv2
 import os
 import sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "wound_segmentation"))
+)
 
 from predict import predict_mask
 from tensorflow.keras import Model
