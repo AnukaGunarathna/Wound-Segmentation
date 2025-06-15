@@ -8,13 +8,13 @@ into a binary mask.
 
 Functions
 ---------
-- predict_mask : Applies preprocessing, runs model prediction, and returns both
+- predict_mask : This applies preprocessing, runs model prediction, and returns both
   the preprocessed image and the predicted mask.
 
 Typical use
 -----------
-Used during evaluation or inference time when applying the trained model to
-new wound images for mask prediction. Handles file loading, normalization,
+This is used during evaluation or inference time when applying the trained model to
+new wound images for mask prediction. It handles file loading, normalization,
 and shape adjustments to ensure compatibility with the model input.
 """
 
