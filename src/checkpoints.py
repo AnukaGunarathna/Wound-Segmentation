@@ -12,13 +12,8 @@ weights are available before inference.
 Functions
 ---------
 download_weights(gdrive_id, model_name)
-    Downloads zipped weights from Google Drive, extracts them to a target directory,
-    and logs the progress. Raises RuntimeError if any step fails.
-
-Examples
---------
->>> download_weights()
->>> model = load_segmentation_model("model_weights/segmentation_model.weights.h5")
+    This function downloads zipped weights from Google Drive, extracts them to a target directory,
+    and logs the progress. It raises a RuntimeError if any step fails.
 
 Notes
 -----
@@ -42,7 +37,7 @@ def download_weights(
     """
     Download and save model weights from Google Drive.
 
-    Downloads a zip file containing model weights using the specified Google Drive
+    This function downloads a zip file containing model weights using the specified Google Drive
     file ID, extracts the contents to the default model directory, and deletes the zip.
 
     Parameters
