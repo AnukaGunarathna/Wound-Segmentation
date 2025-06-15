@@ -1,3 +1,23 @@
+"""
+Utility functions for wound segmentation evaluation and result visualization.
+
+This module contains helper functions used throughout the segmentation pipeline,
+including:
+
+- Metric computation (e.g., Dice coefficient and Dice-based loss)
+- Combined loss function (BCE + Dice) for model training.
+- Visualization and saving of segmentation results.
+
+These utilities are designed to be modular and testable.
+
+Functions
+---------
+- dice_coef : Compute Dice similarity coefficient between two binary masks.
+- dice_loss : Calculate Dice loss from Dice coefficient.
+- bce_dice_loss_weighted : Weighted combination of BCE and Dice losses.
+- save_result : Generate and save a 3-panel plot (input, mask, overlay).
+"""
+
 import os
 import numpy as np
 import matplotlib.pyplot as plt
