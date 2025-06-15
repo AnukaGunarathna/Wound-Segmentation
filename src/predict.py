@@ -1,7 +1,28 @@
+"""
+Model inference utilities for generating segmentation masks from input images.
+
+This module provides functions for running a trained segmentation model on a
+single input image. It includes functionality to load the image, apply the
+same preprocessing used during training, run inference, and convert the output
+into a binary mask.
+
+Functions
+---------
+- predict_mask : Applies preprocessing, runs model prediction, and returns both
+  the preprocessed image and the predicted mask.
+
+Typical use
+-----------
+Used during evaluation or inference time when applying the trained model to
+new wound images for mask prediction. Handles file loading, normalization,
+and shape adjustments to ensure compatibility with the model input.
+"""
+
 import cv2
 import numpy as np
-from preprocessing import resize_with_aspect_ratio, center_crop, normalize_image
 import tensorflow as tf
+
+from preprocessing import resize_with_aspect_ratio, center_crop, normalize_image
 
 
 def predict_mask(
