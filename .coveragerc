@@ -1,10 +1,10 @@
 # .coveragerc
 
 [run]
-source = src
+source = wound_segmentation
 omit =
-    src/checkpoints.py
-    src/utils.py:save_result
+    wound_segmentation/checkpoints.py
+    wound_segmentation/utils.py:save_result
     */config-3.py
     */software_venv/*
     */site-packages/*
