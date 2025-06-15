@@ -2,6 +2,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
+import cv2
 
 from preprocessing import scale_image_to_0_255
 
@@ -146,8 +147,12 @@ def save_result(
 
     display_image = scale_image_to_0_255(image)
 
+    # Define overlay mask features.
+    overlay_mask_color = cv2.cvtColor(np.uint8(mask * 255), cv2.COLOR_GRAY2BGR)
+    overlay = cv2.addWeighted(display_image, 0.7, overlay_mask_color, 0.3, 0)
+
     # Plot and save the comparison figure
-    fig, ax = plt.subplots(1, 2, figsize=(10, 5))
+    fig, ax = plt.subplots(1, 3, figsize=(15, 5))
     ax[0].imshow(display_image)
     ax[0].set_title("Input Image")
     ax[0].axis("off")
@@ -155,6 +160,11 @@ def save_result(
     ax[1].imshow(mask, cmap="gray")
     ax[1].set_title("Predicted Mask")
     ax[1].axis("off")
+
+    ax[2].imshow(display_image)
+    ax[2].imshow(overlay)
+    ax[2].set_title("Overlay")
+    ax[2].axis("off")
 
     output_path = os.path.join(output_dir, f"{basename}_result.png")
     plt.savefig(output_path)
