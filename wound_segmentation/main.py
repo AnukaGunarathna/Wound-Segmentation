@@ -37,11 +37,9 @@ Notes
 
 import argparse
 import os
-import sys
 import logging
 import tensorflow as tf
 
-sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 from model import load_segmentation_model
 from predict import predict_mask
 from checkpoints import download_weights
