@@ -7,14 +7,13 @@ This module defines the core deep learning architecture for semantic segmentatio
 
 Functions
 ---------
-- segmentation_model : Builds the segmentation model with skip connections and transposed
-convolutions.
-- load_segmentation_model : Loads the model with optional pretrained weights for inference
-or fine-tuning.
+- segmentation_model : This builds the segmentation model with skip connections and transposed convolutions.
+
+- load_segmentation_model : This loads the model with optional pretrained weights for inference or fine-tuning.
 
 Typical use
 -----------
-Used both for training and inference stages. The architecture is designed for detecting
+This is used both for training and inference stages. The architecture is designed for detecting
 wound areas in RGB images, and the loader supports loading '.weights.h5' weights
 files for quick deployment.
 
