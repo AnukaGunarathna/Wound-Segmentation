@@ -1,3 +1,30 @@
+"""
+Utilities for downloading and managing model checkpoints.
+
+This module provides a function to automatically download pretrained model weights
+from Google Drive if they are not found locally. The downloaded archive is extracted
+into the default model directory, and the ZIP file is deleted afterward.
+
+Logging is used to provide feedback during the download and extraction processes.
+This module is typically used in the entry point script (main.py) to ensure model
+weights are available before inference.
+
+Functions
+---------
+download_weights(gdrive_id, model_name)
+    Downloads zipped weights from Google Drive, extracts them to a target directory,
+    and logs the progress. Raises RuntimeError if any step fails.
+
+Examples
+--------
+>>> download_weights()
+>>> model = load_segmentation_model("model_weights/segmentation_model.weights.h5")
+
+Notes
+-----
+- The Google Drive ID and default model name are configured in 'constants.py'.
+"""
+
 import os
 import logging
 from zipfile import ZipFile
