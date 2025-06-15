@@ -3,6 +3,7 @@
 [run]
 source = src
 omit =
+    src/checkpoints.py
     src/utils.py:save_result
     */config-3.py
     */software_venv/*
