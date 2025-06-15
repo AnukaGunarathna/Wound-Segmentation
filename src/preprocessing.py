@@ -1,5 +1,5 @@
 """
-Preprocessing functions for wound image resizing, cropping and normalization,
+Preprocessing functions for wound image resizing, cropping and normalization.
 
 This module includes core image preprocessing utilities used during both training
 and inference phases of the wound segmentation pipeline. All functions are
@@ -24,9 +24,9 @@ def resize_with_aspect_ratio(
     image: np.ndarray, target_size: int = IMG_SIZE
 ) -> np.ndarray:
     """
-    Resize an image so the shorter side becomes `target_size`, preserving aspect ratio.
-    Pads with zeros to avoid shape mismatches due to rounding. The function can handles
-    both grayscale and RGB images.
+    This function resizes an image so the shorter side becomes 'target_size', preserving the aspect
+    ratio. It pads the image arrays with zeros to avoid shape mismatches due to rounding. The
+    function can handles both grayscale and RGB images.
 
     Parameters
     ----------
@@ -120,7 +120,7 @@ def center_crop(image: np.ndarray, size: int = IMG_SIZE) -> np.ndarray:
 
 def scale_image_to_0_255(image: np.ndarray) -> np.ndarray:
     """
-    Rescale an image to [0, 255] range and convert to uint8.
+    this function rescales an image to [0, 255] range and convert it to uint8.
 
     Parameters
     ----------
@@ -156,8 +156,8 @@ def scale_image_to_0_255(image: np.ndarray) -> np.ndarray:
 
 def normalize_image(image: np.ndarray) -> np.ndarray:
     """
-    Normalize image to have zero mean and unit standard deviation per channel.
-    Normalization removes highlighted regions, shadows and make that object easier to detect.
+    This function normalizes an image to have zero mean and unit standard deviation per channel.
+    This normalization removes highlighted regions, shadows and make that object easier to detect.
 
     Parameters
     ----------
