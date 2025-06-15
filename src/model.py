@@ -1,3 +1,25 @@
+"""
+Model architecture and loader for binary wound segmentation using U-Net with EfficientNetB3 encoder.
+
+This module defines the core deep learning architecture for semantic segmentation. It includes:
+- A function to construct a U-Net-style model using EfficientNetB3 as the encoder.
+- A loader function that optionally loads pretrained weights into the model.
+
+Functions
+---------
+- segmentation_model : Builds the segmentation model with skip connections and transposed
+convolutions.
+- load_segmentation_model : Loads the model with optional pretrained weights for inference
+or fine-tuning.
+
+Typical use
+-----------
+Used both for training and inference stages. The architecture is designed for detecting
+wound areas in RGB images, and the loader supports loading '.weights.h5' weights
+files for quick deployment.
+
+"""
+
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from constants import IMG_SIZE
