@@ -29,7 +29,7 @@ from preprocessing import scale_image_to_0_255
 
 def dice_coef(y_true: tf.Tensor, y_pred: tf.Tensor, smooth: float = 1e-6) -> tf.Tensor:
     """
-    Compute the Dice coefficient, a measure of similarity between two binary masks.
+    This function computes the Dice coefficient, a measure of similarity between two binary masks.
 
     Parameters
     ----------
@@ -71,7 +71,7 @@ def dice_coef(y_true: tf.Tensor, y_pred: tf.Tensor, smooth: float = 1e-6) -> tf.
 
 def dice_loss(y_true: tf.Tensor, y_pred: tf.Tensor) -> tf.Tensor:
     """
-    Compute the Dice loss, defined as 1 - Dice coefficient.
+    This function computes the Dice loss, defined as 1 - Dice coefficient.
 
     Parameters
     ----------
@@ -97,7 +97,7 @@ def bce_dice_loss_weighted(
     y_true: tf.Tensor, y_pred: tf.Tensor, alpha: float = 0.2
 ) -> tf.Tensor:
     """
-    Compute a weighted combination of Binary Crossentropy and Dice loss.
+    This function computes a weighted combination of Binary Crossentropy and Dice loss.
 
     Parameters
     ----------
@@ -138,7 +138,8 @@ def save_result(
     image: np.ndarray, mask: np.ndarray, basename: str, output_dir: str
 ) -> None:  # pragma: no cover
     """
-    Save the input image and predicted mask side-by-side as a PNG.
+    This function saves the input image, predicted mask and the overlay
+    of the mask on the image, side-by-side as a PNG.
 
     Parameters
     ----------
