@@ -1,3 +1,40 @@
+"""
+Main entry point for performing wound segmentation using a trained deep learning model.
+
+This script provides a command-line interface (CLI) for running segmentation predictions
+on either a single image or a directory of images. It performs preprocessing, inference,
+and post-processing (mask overlay and saving results).
+
+The script automatically downloads pretrained model weights from Google Drive if they are
+not found locally.
+
+Functions
+---------
+run_single_image(model, image_path, output_dir, threshold)
+    Runs segmentation on a single image and saves the result.
+
+run_batch(model, input_dir, output_dir, threshold)
+    Runs segmentation on all valid images in a folder and saves the results.
+
+main()
+    Parses command-line arguments, loads the model, and executes the appropriate pipeline.
+
+Examples
+--------
+Run inference on a single image:
+>>> python main.py --image sample.jpg
+
+Run inference on a folder of images:
+>>> python main.py --input_dir data/images/
+
+Notes
+-----
+- The model architecture is defined in 'model.py'.
+- Preprocessing and mask saving utilities are used from 'preprocessing.py' and 'utils.py'.
+- Weights are auto-downloaded from a public Google Drive link configured in 'constants.py'.
+
+"""
+
 import argparse
 import os
 import sys
