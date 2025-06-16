@@ -8,7 +8,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../../wound_segmentation"))
+sys.path.insert(0, os.path.abspath("../.."))
 
 project = "Wound Segmentation"
 copyright = "2025, Anuka Gunarathna"
@@ -24,7 +24,13 @@ extensions = [
     "sphinx_rtd_theme",
     "myst_parser",  # only if using markdown in docs
 ]
-
+autodoc_mock_imports = [
+    "tensorflow",
+    "numpy",
+    "cv2",  # OpenCV
+    "gdown",
+    "matplotlib",
+]
 autodoc_member_order = "bysource"
 
 templates_path = ["_templates"]
