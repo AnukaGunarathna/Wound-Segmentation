@@ -2,7 +2,9 @@
 Model architecture and loader for binary wound segmentation using U-Net with EfficientNetB3 encoder.
 
 This module defines the core deep learning architecture for semantic segmentation. It includes:
+
 - A function to construct a U-Net-style model using EfficientNetB3 as the encoder.
+
 - A loader function that optionally loads pretrained weights into the model.
 
 Functions

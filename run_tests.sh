@@ -2,7 +2,7 @@
 
 # Exit immediately if a command fails
 set -e
-echo "🧪 Running tests with coverage..."
+echo "Running tests with coverage..."
 
 # Clean previous coverage data
 coverage erase
