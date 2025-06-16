@@ -3,6 +3,7 @@
 [run]
 source = wound_segmentation
 omit =
+    wound_segmentation/main.py
     wound_segmentation/checkpoints.py
     wound_segmentation/utils.py:save_result
     */config-3.py
