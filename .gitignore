@@ -21,3 +21,6 @@ model_weights/
 htmlcov/
 .pytest_cache/
 .mypy_cache/
+
+# html docs
+docs/build/

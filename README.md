@@ -9,3 +9,7 @@ A command-line tool for binary segmentation of wound images using a pre-trained 
 - Provide a clean and reproducible pipeline to segment wounds from images.
 - Make the tool usable by others through a CLI and clear documentation.
 ---
+
+### Documentation
+
+For a complete guide, API reference, and usage examples, please see the **[full documentation here](https://AnukaGunarathna.github.io/Wound-Segmentation/)**.

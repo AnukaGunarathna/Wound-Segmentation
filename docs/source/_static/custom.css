@@ -1,0 +1,4 @@
+/* Selects all paragraph tags within the main content area */
+div[role="main"] p {
+    text-align: justify;
+}
