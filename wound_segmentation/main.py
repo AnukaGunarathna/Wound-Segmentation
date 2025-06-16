@@ -40,11 +40,11 @@ import os
 import logging
 import tensorflow as tf
 
-from model import load_segmentation_model
-from predict import predict_mask
-from checkpoints import download_weights
-from utils import save_result
-from constants import (
+from .model import load_segmentation_model
+from .predict import predict_mask
+from .checkpoints import download_weights
+from .utils import save_result
+from .constants import (
     DEFAULT_OUTPUT_DIR,
     DEFAULT_MODEL_PATH,
     GDRIVE_FILE_ID,

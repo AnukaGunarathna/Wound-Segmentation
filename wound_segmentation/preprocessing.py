@@ -17,7 +17,7 @@ These transformations ensure model robustness across varying input sizes and lig
 
 import cv2
 import numpy as np
-from constants import IMG_SIZE
+from .constants import IMG_SIZE
 
 
 def resize_with_aspect_ratio(

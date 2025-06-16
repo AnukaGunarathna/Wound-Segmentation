@@ -23,7 +23,7 @@ files for quick deployment.
 
 import tensorflow as tf
 from tensorflow.keras import layers, models
-from constants import IMG_SIZE
+from .constants import IMG_SIZE
 
 
 def segmentation_model(input_shape: tuple = (IMG_SIZE, IMG_SIZE, 3)) -> tf.keras.Model:

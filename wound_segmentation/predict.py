@@ -22,7 +22,7 @@ import cv2
 import numpy as np
 import tensorflow as tf
 
-from preprocessing import resize_with_aspect_ratio, center_crop, normalize_image
+from .preprocessing import resize_with_aspect_ratio, center_crop, normalize_image
 
 
 def predict_mask(

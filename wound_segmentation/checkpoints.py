@@ -25,7 +25,7 @@ import logging
 from zipfile import ZipFile
 import gdown
 
-from constants import GDRIVE_FILE_ID, DEFAULT_MODEL_DIR, DEFAULT_MODEL_FILENAME
+from .constants import GDRIVE_FILE_ID, DEFAULT_MODEL_DIR, DEFAULT_MODEL_FILENAME
 
 # Module-level logger
 logger = logging.getLogger(__name__)

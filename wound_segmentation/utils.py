@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import cv2
 
-from preprocessing import scale_image_to_0_255
+from .preprocessing import scale_image_to_0_255
 
 
 def dice_coef(y_true: tf.Tensor, y_pred: tf.Tensor, smooth: float = 1e-6) -> tf.Tensor:
