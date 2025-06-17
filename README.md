@@ -48,7 +48,7 @@ Once installed, you can run the segmentation either on a single image or a folde
 #### Single Image Inference
 
 ```bash
-python3 -m wound_segmentation.main --image path/to/image.jpg 
+python3 -m wound_segmentation.main --image path/to/image.jpeg 
 ```
 
 #### Batch Inference on Folder
@@ -67,7 +67,7 @@ You can also optionally specify:
 
 ```bash
 python3 -m wound_segmentation.main \
-  --image path/to/image.jpg \
+  --image path/to/image.jpeg \
   --output results/ \
   --threshold 0.6
 ```
@@ -85,6 +85,7 @@ Below is a sample result showing the input image, predicted wound mask, and the 
 
 > *Test image sourced from Adobe Stock under Standard License for academic non-commercial use.*
 
+---
 
 ### Documentation
 
@@ -161,7 +162,7 @@ While the tool is designed for practical use and ease of deployment, please be a
 5. **No Graphical Interface (GUI)**  
 - The tool is built for CLI-based workflows. A GUI is not currently provided.
 
-7. **No Automatic Input Validation**  
+6. **No Automatic Input Validation**  
 - The tool expects valid RGB images.  
 - Grayscale, corrupted, or improperly formatted images may cause errors or undefined behavior.
 ---
