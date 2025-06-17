@@ -1,18 +1,13 @@
 import numpy as np
 import pytest
-import sys, os
 
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "wound_segmentation"))
-)
-
-from preprocessing import (
+from wound_segmentation.preprocessing import (
     resize_with_aspect_ratio,
     center_crop,
     scale_image_to_0_255,
     normalize_image,
 )
-from constants import IMG_SIZE
+from wound_segmentation.constants import IMG_SIZE
 
 
 def test_resize_image_larger_and_shorter_sides():

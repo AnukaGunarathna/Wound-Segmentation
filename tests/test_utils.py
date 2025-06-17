@@ -1,12 +1,8 @@
 import numpy as np
 import tensorflow as tf
 import pytest
-import sys, os
 
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "wound_segmentation"))
-)
-from utils import dice_coef, dice_loss, bce_dice_loss_weighted
+from wound_segmentation.utils import dice_coef, dice_loss, bce_dice_loss_weighted
 
 
 def test_dice_coef_perfect_match():
