@@ -174,6 +174,7 @@ def save_result(
 
     # Plot and save the comparison figure
     fig, ax = plt.subplots(1, 3, figsize=(15, 5))
+    plt.subplots_adjust(wspace=0.02, hspace=0.0)
     ax[0].imshow(display_image)
     ax[0].set_title("Input Image")
     ax[0].axis("off")
@@ -188,5 +189,5 @@ def save_result(
     ax[2].axis("off")
 
     output_path = os.path.join(output_dir, f"{basename}_result.png")
-    plt.savefig(output_path)
+    plt.savefig(output_path, bbox_inches="tight", pad_inches=0.1)
     plt.close()
