@@ -56,13 +56,21 @@ Once installed, you can run the segmentation either on a single image or a folde
 #### Single Image Inference
 
 ```bash
-python3 -m wound_segmentation.main --image path/to/image.jpeg 
+On macOS & Linux:
+python3 -m wound_segmentation.main --image path/to/image.jpeg
+
+On Windows:
+python -m wound_segmentation.main --image path\to\image.jpeg
 ```
 
 #### Batch Inference on Folder
 
 ```bash
+On macOS & Linux:
 python3 -m wound_segmentation.main --input_dir path/to/image_folder
+
+On Windows:
+python -m wound_segmentation.main --input_dir path\to\image_folder
 ```
 
 You can also optionally specify:
@@ -74,10 +82,11 @@ You can also optionally specify:
 #### Example
 
 ```bash
-python3 -m wound_segmentation.main \
-  --image path/to/image.jpeg \
-  --output results/ \
-  --threshold 0.6
+On macOS & Linux:
+python3 -m wound_segmentation.main --image path/to/image.jpeg --output results/ --threshold 0.6
+
+On Windows:
+python -m wound_segmentation.main --image path\to\image.jpeg --output results\ --threshold 0.6
 ```
 
 The first run will automatically download the pretrained model weights from Google Drive.
@@ -105,7 +114,15 @@ If you prefer to build the docs locally,
 
 ```bash
 cd docs
+
+Then,
+
+On macOS & Linux:
 make html
+
+On Windows:
+make.bat html
+
 # Then open docs/build/html/index.html in your browser
 ```
 
@@ -128,11 +145,14 @@ You can run the tests and generate a coverage report by running this in project 
 
 
 ```bash
+On macOS & Linux:
 # Make the script executable (only needed once)
 chmod +x run_tests.sh
-
 # Run the tests with coverage
 ./run_tests.sh
+
+On Windows:
+coverage run --rcfile=.coveragerc -m pytest tests/
 ```
 > Note: You may need to run chmod +x run_tests.sh the first time to make the script executable.
 
