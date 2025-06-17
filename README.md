@@ -26,13 +26,21 @@ To install the application, you can just clone this repository and use pip.
    ```
 
 2. **(Optional) Create a virtual environment**
+    On macOS/Linux:
 
    ```bash
    python3 -m venv wound_venv
    source wound_venv/bin/activate
    ```
 
+   On Windows:
+
+   ```bash
+   python -m venv wound_venv
+   .\wound_venv\Scripts\activate
+   ```
 3. **Install dependencies**
+   Install the required packages using pip. 
 
    ```bash
    pip install -r requirements.txt
@@ -43,7 +51,7 @@ To install the application, you can just clone this repository and use pip.
 
 ### Usage
 
-Once installed, you can run the segmentation either on a single image or a folder of images.
+Once installed, you can run the segmentation either on a single image or a folder of images. All commands should be run from the root directory of the project.
 
 #### Single Image Inference
 
