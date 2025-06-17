@@ -15,6 +15,9 @@ It includes,
 ---
 
 ### Installation & Setup
+This project has been tested with Python 3.11 on both macOS and Windows, and should work with Python 3.9 to 3.11. Note that TensorFlow 2.16 does not officially support Python versions beyond 3.11, so please ensure your Python version is within this range.
+
+See requirements.txt for the full list of dependencies.
 
 To install the application, you can just clone this repository and use pip.
 
@@ -55,21 +58,23 @@ Once installed, you can run the segmentation either on a single image or a folde
 
 #### Single Image Inference
 
+On macOS/Linux:
 ```bash
-On macOS & Linux:
 python3 -m wound_segmentation.main --image path/to/image.jpeg
+```
 
 On Windows:
+```bash
 python -m wound_segmentation.main --image path\to\image.jpeg
 ```
 
 #### Batch Inference on Folder
-
+On macOS/Linux:
 ```bash
-On macOS & Linux:
 python3 -m wound_segmentation.main --input_dir path/to/image_folder
-
+```
 On Windows:
+```bash
 python -m wound_segmentation.main --input_dir path\to\image_folder
 ```
 
@@ -81,11 +86,13 @@ You can also optionally specify:
 
 #### Example
 
+On macOS/Linux:
 ```bash
-On macOS & Linux:
 python3 -m wound_segmentation.main --image path/to/image.jpeg --output results/ --threshold 0.6
+```
 
 On Windows:
+```bash
 python -m wound_segmentation.main --image path\to\image.jpeg --output results\ --threshold 0.6
 ```
 
@@ -114,15 +121,18 @@ If you prefer to build the docs locally,
 
 ```bash
 cd docs
-
+```
 Then,
 
-On macOS & Linux:
+On macOS/Linux:
+```bash
 make html
+# Then open docs/build/html/index.html in your browser
+```
 
 On Windows:
-make.bat html
-
+```bash
+.\make.bat html
 # Then open docs/build/html/index.html in your browser
 ```
 
@@ -144,15 +154,18 @@ Tests are designed to verify all core components of the wound segmentation pipel
 You can run the tests and generate a coverage report by running this in project root,
 
 
+
+On macOS/Linux:
 ```bash
-On macOS & Linux:
 # Make the script executable (only needed once)
 chmod +x run_tests.sh
 # Run the tests with coverage
 ./run_tests.sh
+```
 
 On Windows:
-coverage run --rcfile=.coveragerc -m pytest tests/
+```bash
+coverage html
 ```
 > Note: You may need to run chmod +x run_tests.sh the first time to make the script executable.
 
