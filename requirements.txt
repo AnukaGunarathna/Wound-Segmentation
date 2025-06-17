@@ -1,0 +1,16 @@
+# Core dependencies for the Wound Segmentation project
+
+# --- Machine Learning Libraries (Platform Specific) ---
+# For Windows, install standard TensorFlow
+tensorflow>=2.16; sys_platform != 'darwin'
+
+# For macOS (Apple Silicon), install tensorflow-macos and tensorflow-metal
+tensorflow-macos>=2.16; sys_platform == 'darwin'
+tensorflow-metal>=1.2; sys_platform == 'darwin'
+
+
+# --- Other Core Libraries ---
+numpy>=1.26
+opencv-python>=4.11
+matplotlib>=3.10
+gdown>=5.2
