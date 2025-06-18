@@ -31,6 +31,10 @@ def temp_rgb_image():
     image = np.random.randint(0, 255, (512, 512, 3), dtype=np.uint8)
     tmp = tempfile.NamedTemporaryFile(suffix=".jpg", delete=False)
     cv2.imwrite(tmp.name, image)
+
+    # Close the file handle to release the lock before the test runs
+    tmp.close()
+
     yield tmp.name
     os.remove(tmp.name)
 

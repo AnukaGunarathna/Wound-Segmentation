@@ -69,13 +69,15 @@ python -m wound_segmentation.main --image path\to\image.jpeg
 ```
 
 #### Batch Inference on Folder
+This repository includes a test_batch folder containing several sample images sourced from Adobe Stock, so you can easily test the batch processing mode.
+
 On macOS/Linux:
 ```bash
-python3 -m wound_segmentation.main --input_dir path/to/image_folder
+python3 -m wound_segmentation.main --input_dir test_batch
 ```
 On Windows:
 ```bash
-python -m wound_segmentation.main --input_dir path\to\image_folder
+python -m wound_segmentation.main --input_dir test_batch
 ```
 
 You can also optionally specify:
@@ -162,12 +164,14 @@ chmod +x run_tests.sh
 # Run the tests with coverage
 ./run_tests.sh
 ```
+> Note: You may need to run chmod +x run_tests.sh the first time to make the script executable.
 
 On Windows:
 ```bash
+coverage run --rcfile=.coveragerc -m pytest tests\
 coverage html
 ```
-> Note: You may need to run chmod +x run_tests.sh the first time to make the script executable.
+
 
 After execution, a coverage report will be printed in the terminal and a detailed HTML report will be saved in `htmlcov/index.html`.
 
