@@ -72,10 +72,10 @@ def predict_mask(
     # Apply same preprocessing steps as in training
     image = resize_with_aspect_ratio(image)
     image = center_crop(image)
-    image = normalize_image(image)
+    normalized_image = normalize_image(image)
 
     # Add batch dimension
-    input_tensor = image[np.newaxis, ...].astype(np.float32)
+    input_tensor = normalized_image[np.newaxis, ...].astype(np.float32)
 
     # Run model prediction
     predicted_mask = model.predict(input_tensor)[0]
