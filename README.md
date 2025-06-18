@@ -172,8 +172,7 @@ coverage run --rcfile=.coveragerc -m pytest tests\
 coverage html
 ```
 
-
-After execution, a coverage report will be printed in the terminal and a detailed HTML report will be saved in `htmlcov/index.html`.
+After execution, a coverage report will be printed in the terminal (only for macOS) and a detailed HTML report will be saved in `htmlcov/index.html`(for both macOS and Windows) .
 
 #### Coverage
 
